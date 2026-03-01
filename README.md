@@ -41,6 +41,7 @@ All these services are orchestrated by our CRE Agent, which runs in Chainlink’
 The Sentinel is not a simple bot; it is a Customized Runtime Environment Agent. It operates off‑chain, performing the “hard logic” (ZKP generation, bank API calls) that is too private or expensive for the blockchain.
 
 ```plaintext
+<<<<<<< HEAD
 *******************************************************************************
                             Agentic Compliance Brige
 *******************************************************************************
@@ -96,6 +97,39 @@ The Sentinel is not a simple bot; it is a Customized Runtime Environment Agent. 
                                     │ Recipient    │
                                     │ Wallet (Dest)│
                                     └──────────────┘
+=======
+[User] --(1) send funds--> [Institutional Escrow (Source Chain)]
+                                      |
+                                      | (2) locked
+                                      v
+                            [Agentic Compliance Bridge (off-chain)]
+                                      |
+        +-----------------------------+-----------------------------+
+        |                             |                             |
+         (3) Functions                 (4) Circom/SnarkJS            (5) CCIP
+        v                             v                             v
+[Mock Bank API]              [ZKP Generation]               [CCIP Outbox]
+ (balance, jurisdiction)       (compliance proof)             (proof hash)
+        |                             |                             |
+        +-------------(6) data flow----+                             |
+                                      | (7) proof hash               |
+                                      +-------------> [CCIP] ------->+
+                                                                      |
+                                                                      v
+                                                        [Dynamic Compliance Firewall (Dest Chain)]
+                                                                      |
+                                                                      | (8) verifyProof()
+                                                                      v
+                                                           [Solidity Verifier Contract]
+                                                                      |
+                                                                      | (9) if valid -> OPEN
+                                                                      v
+                                                           [Firewall Gate: 🔥 OPEN]
+                                                                      |
+                                                                      | (10) releaseFunds()
+                                                                      v
+                                                           [Recipient Wallet on Dest Chain]
+>>>>>>> 8744314f192689c0b7d7c1942554d383f8b1fe13
 ```
 
 
@@ -173,5 +207,10 @@ The CRE agent can run continuously, listening for events and executing complex w
 
 Our Agentic Compliance Bridge is a living example of what CRE enables: a hybrid smart contract that combines the transparency of blockchain with the privacy and computational power of off‑chain agents.
 
+<<<<<<< HEAD
 📜 **License**
 MIT — Dedicated to the Chainlink Convergence 2026 Hackathon.
+=======
+📜 License
+MIT — Dedicated to the Chainlink Convergence 2026 Hackathon.
+>>>>>>> 8744314f192689c0b7d7c1942554d383f8b1fe13
