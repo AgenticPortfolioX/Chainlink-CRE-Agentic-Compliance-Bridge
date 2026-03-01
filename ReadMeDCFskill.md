@@ -9,25 +9,33 @@ description:
 ## 🛡️ Overview: What is this Skill?
 The `DynamicComplianceFirewall` is the specialized logic hub for **Zero-Knowledge Proof (ZKP)** compliance. While the root directory handles general orchestration, this skill contains the "Hard Logic" required to protect institutional assets.
 
-## 🚀 Key Skill Components
+## 🚀 Hackathon Demonstration - Dynamic Compliance Firewall
 
-### 1. The ZK-Attestor (Source Engine)
-Located in `sentinel-rest/`, this component is responsible for the **Creation** of the proof. It:
-- Connects to the **Mock Bank** to fetch private balance data.
-- Uses **SnarkJS** to generate a Groth16 proof.
-- Packages the proof into a **Chainlink CCIP** message.
+**0. Purpose**
+Institutions want to use Defi, but they cant risk interacting with non compliant liquidity. Our Agentic Compliance Bridge solves this by deploying a custom-built skill called Dynamic Compliance Firewall, where Zero Knowledge Proofs and CCIP are used to create a privacy-preserving 'Compliance Firewall' that will only release a transaction from Escrow into the compliant defi environment if it is cryptographically proven to be a compliant transaction.
+**1. ORIGINATE – The ZK-Attestor (Source Engine)**  
+`sentinel-rest/` (Agentic Brain):  
+- Connects to Mock Bank via Chainlink Functions for private balance/jurisdiction.  
+- Uses SnarkJS to generate Groth16 ZKP (balance > 100 ETH AND jurisdiction = USA).  
+- Packages proof into CCIP message → posts to source outbox.
 
-### 2. The Verification Gate (Destination Engine)
-Located in `contracts/ComplianceGuard.sol`, this is the "Lock" on the vault. 
-- It implements `CCIPReceiver`.
-- It performs an on-chain `verifier.verifyProof()` call.
-- It only whitelists users who provide a valid, anonymous compliance proof.
+**2. RELAY – The Bridge Transit**  
+Bridge Relay (simulated CCIP):  
+- Picks up attestation from source outbox.  
+- Delivers to destination firewall contract.
 
-### 3. The Payout Sentry (Escrow)
-Located in `contracts/InstitutionalEscrow.sol`, this is the "Vault".
-- It holds the 10 ETH allocated for the institutional trade.
-- It is hard-coded to check the `ComplianceGuard` before releasing any funds.
-- **Fail-Safe**: Even if the dispatcher is hacked, the Escrow will not open unless the Firewall has been cleared by a valid ZKP.
+**3. VERIFY – The Verification Gate (Destination Engine)**  
+`contracts/ComplianceGuard.sol` (Lock on vault):  
+- Implements `CCIPReceiver`.  
+- On‑chain `verifier.verifyProof()`.  
+- If valid: **"✅ COMPLIANCE ATTESTED"** → firewall opens (🔥 OPEN).
+
+**4. SETTLE – The Payout Sentry (Escrow)**  
+`contracts/InstitutionalEscrow.sol` (Vault):  
+- Holds 10 ETH for trade.  
+- Checks `ComplianceGuard` before release.  
+- When firewall open, funds instantly released.  
+- **Fail‑Safe**: Escrow only opens with valid ZKP, even if dispatcher hacked.
 
 ## 🌉 The "Virtual Bridge" Logic
 Because we are working on **Tenderly Virtual Testnets**, the Chainlink nodes are simulated.
@@ -39,9 +47,3 @@ Because we are working on **Tenderly Virtual Testnets**, the Chainlink nodes are
 | `sentinel-rest/.env` | Network Config | You deploy to a new Tenderly Virtual Network. |
 | `mock-bank/index.js` | User Data | You want to test a "Compliance Failure" (set balance < 100). |
 | `scripts/bridge-relay.ts` | The Ferry | You see a "Call Exception" (usually means the destination has no gas). 
-
-## ✅ Summary of the "Silent" Workflow
-1. **Originate**: Agentic Brain makes the ZKP.
-2. **Relay**: Bridge Relay ferries the proof.
-3. **Verify**: If done correctly the Smart Contract should confirm: "✅ COMPLIANCE ATTESTED.
-4. **Settle**: Escrow releases the funds instantly when the Compliance Firewall opens to the proven credentialed user.
