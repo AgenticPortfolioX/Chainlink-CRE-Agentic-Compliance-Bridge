@@ -2,7 +2,6 @@
 description: 
 ---
 
-
 Chainlink Sentinel: The Agentic Compliance Bridge 
 Hackathon: Chainlink Convergence (Feb 2026)
 Status: Live Demo Ready | Core Innovation: Dynamic Compliance Firewall powered by Chainlink CRE
@@ -104,8 +103,7 @@ Settlement	/release-funds	Agent triggers the escrow release, completing atomic s
 
 These workflows are powered by the CRE, which allows the agent to run continuously, react to events, and interact with both off‑chain APIs and on‑chain contracts. We use NPM commands in the Hackathon submission but we have also turned those NPM commands into /commands for our Agentic Compliance Bridge to use when needed.
 
-📁 Project Structure
-text
+```plaintext
 chainlink-sentinel/
 ├── dynamic-compliance-firewall/      # 💎 MAIN HACKATHON FEATURE
 │   ├── sentinel-rest/                # 🧠 CRE Agent (Node.js + Express)
@@ -123,6 +121,8 @@ chainlink-sentinel/
 ├── ai-copilot.js                      # AI Compliance analysis (future)
 ├── sanctions-oracle.js                # Multi‑provider sanctions screening
 └── stealth-pass.js                    # DECO ZKP attestation engine (prototype)
+```
+
 🏗️ Technical Stack
 ZKP Engine: Circom 2.0 & SnarkJS (Groth16)
 
