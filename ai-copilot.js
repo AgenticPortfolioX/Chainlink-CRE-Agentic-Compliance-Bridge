@@ -10,9 +10,9 @@
  *   2. Sentinel triggers Chainlink Function → calls DeepSeek
  *   3. AI analyzes: jurisdiction rules, entity risk, transaction patterns
  *   4. Returns structured risk score + recommendation
- *   5. Sentinel auto-approves (LOW) or escalates (MEDIUM/HIGH)
+ *   5. Agentic Compliance Bridge auto-approves (LOW) or escalates (MEDIUM/HIGH)
  * 
- * Convergence Hackathon Theme: "AI agents consuming CRE workflows"
+ * 
  * 
  * @module ai-copilot
  * @author Sentinel Architect
