@@ -45,11 +45,11 @@ The Sentinel is not a simple bot; it is a Customized Runtime Environment Agent. 
                                       |
                                       | (2) locked
                                       v
-                            [CRE Agent (off-chain)]
+                            [Agentic Compliance Bridge (off-chain)]
                                       |
         +-----------------------------+-----------------------------+
         |                             |                             |
-        | (3) Functions                | (4) Circom/SnarkJS          | (5) CCIP
+         (3) Functions                 (4) Circom/SnarkJS            (5) CCIP
         v                             v                             v
 [Mock Bank API]              [ZKP Generation]               [CCIP Outbox]
  (balance, jurisdiction)       (compliance proof)             (proof hash)
