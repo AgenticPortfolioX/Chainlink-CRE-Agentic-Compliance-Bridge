@@ -63,7 +63,7 @@ The Sentinel is not a simple bot; it is a Customized Runtime Environment Agent. 
                                                                       |
                                                                       | (8) verifyProof()
                                                                       v
-                                                           [Solinity Verifier Contract]
+                                                           [Solidity Verifier Contract]
                                                                       |
                                                                       | (9) if valid -> OPEN
                                                                       v
