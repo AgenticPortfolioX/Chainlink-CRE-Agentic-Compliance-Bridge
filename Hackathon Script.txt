@@ -54,8 +54,7 @@ We can see the transaction on Tenderely Testnet (top transaction) -
 Attestation was successfully passed to Arbitrum:
 (dont read)
 Terminal 2:
-🌉 [RELAY] Ferrying ZKP across the virtual bridge...
-✅ [RELAY] Cross-chain synchronization complete.
+✅ COMPLIANCE ATTESTED! The Agentic Compliance Bridge is now OPEN for this institution.
 Terminal 3:
 success: true,
 
