@@ -2,8 +2,7 @@
 description: 
 ---
 
-# 🛡️ Agentic Compliance Bridge
-**Owner: Justin Gramke (jmgramke@gmail.com)**
+# Agentic Compliance Bridge
 **Hackathon:** Chainlink Convergence (Feb 2026)  
 **Main Skill & Demo** - Dynamic Compliance Firewall powered by Chainlink CRE
 
@@ -198,3 +197,4 @@ Our Agentic Compliance Bridge is a living example of what CRE enables: a hybrid 
 
 📜 License
 MIT — Dedicated to the Chainlink Convergence 2026 Hackathon
+**Owner: Justin Gramke (jmgramke@gmail.com)**

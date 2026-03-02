@@ -44,3 +44,6 @@ coverage/
 # Local logs
 *.log
 dynamic-compliance-firewall/compile.log
+
+# Local Config
+gemini.md
