@@ -27,7 +27,7 @@ The proof is ferried cross-chain using Chainlink CCIP to the destination chain (
 
 The Dynamic Compliance Firewall on the destination chain verifies the ZKP. If valid, it opens the gate.
 
-The Agentic Bridge triggers atomic settlement: funds are released from escrow to the user’s wallet on the destination chain.
+The Agentic Bridge triggers atomic settlement: funds are released from escrow to the user’s wallet on the destination chain inside the compliance DeFi environment.
 
 Traditional bridges move money, which is slow and vulnerable. Our Agentic Bridge moves compliance proofs, enabling instant settlement of assets already secured on the destination chain.
 
