@@ -13,7 +13,8 @@ Our solution: an Agentic Compliance Bridge that acts as a cryptographic gateway.
 
 The centerpiece of our hackathon submission is the Dynamic Compliance Firewall—a smart gateway that remains locked until a valid cross-chain compliance attestation arrives. This firewall is controlled by a Customized Runtime Environment (CRE) Agent that performs the heavy off-chain logic: ZKP generation, bank API audits, and cross-chain orchestration via Chainlink services.
 
-[![Project Logo](https://github.com/AgenticPortfolioX/Chainlink-CRE-Agentic-Compliance-Bridge/blob/main/AgenticComplianceBridge.jpg?raw=true)](https://github.com/AgenticPortfolioX/Chainlink-CRE-Agentic-Compliance-Bridge/blob/main/AgenticComplianceBridge.jpg)
+Click for Demonstration Video:
+[![Project Logo](https://github.com/AgenticPortfolioX/Chainlink-CRE-Agentic-Compliance-Bridge/blob/main/AgenticComplianceBridge.jpg?raw=true)](https://www.youtube.com/watch?v=Sw76lWZluE4)
 
 🚀 **How It Works (High-Level)**
 A user sends funds to the Agentic Compliance Bridge. Funds are immediately placed in an Institutional Escrow Vault.
