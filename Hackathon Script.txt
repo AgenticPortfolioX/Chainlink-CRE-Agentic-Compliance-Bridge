@@ -2,16 +2,13 @@
 
 ## Intro Slide Video
 
-(Narrative): Institutions are ready for DeFi, but they are currently paralyzed by the risk of non-compliant liquidity. We solve this with the Agentic Compliance Bridge—a privacy-preserving 'Compliance Firewall' that ensures only cryptographically proven actors enter the pool.
 
-The Dynamic Compliance Firewall skill acts as an automated gatekeeper, vaulting funds from non-compliant users and releasing them only after ZKPs are securely ferried via Chainlink CCIP to guarantee a legally compliant cross-chain environment. This dual-layer system uses an off-chain Agentic Brain to audit private bank APIs and on-chain Guards to secure an Escrow Vault—locking 10 ETH on the source chain and triggering atomic release only when a ZKP mathematically proves the user meets our 100 ETH wealth and US residency requirements. This is what we will walk through in today's demo
-
-The Chainlink Runtime Environment enables our Agentic Compliance Bridge to operate off-chain, handling private logic like ZKP generation and bank API audits that cannot be performed on-chain, while Chainlink Functions verifies real-world data (Mock Bank) and pulls attestations into our smart contracts to ensure only verified actors enter the pool.
+Institutions are ready for DeFi but remain paralyzed by the risk of non-compliant liquidity, which we solve with the Agentic Compliance Bridge—a privacy-preserving firewall that only allows cryptographically verified actors into the pool. It operates as an automated gatekeeper by locking funds from non-compliant users and releasing them only after Zero Knowledge Proofs confirm they meet strict wealth and residency requirements, verified via Chainlink’s off-chain environment and on-chain attestations.
 
 
 ## Desktop Video - Explain Layout
 
-On the left is our Mock Bank holding sensitive PII: a 200 ETH balance in Jurisdiction 840 (USA). This data must remain private but be cryptographically proven for the transaction to proceed. On the right is our Agentic Bridge API, the orchestrator that generates the ZKPs and manages the Chainlink CCIP handshake.
+On the left is our Mock Bank holding sensitive  Personal Identifiable Information: a 200 ETH balance in Jurisdiction 840 (USA). This data must remain private but be cryptographically proven for the transaction to proceed. On the right is our Agentic Bridge API, the orchestrator that generates the ZKPs and manages the Chainlink CCIP handshake.
 
 On the far right, we have the Bridge API orchestrating ZKPs and CCIP across three terminals.
 
@@ -27,26 +24,26 @@ Phase 1:
 COMMAND 1
 10 ETH is sent from the user to the Agentic Compliance Bridge. It is not yet flagged as compliant so the funds are locked into an escrow holding vault.
 
-COMMAND 2-Bottom Terminal 3
-It shows our recipient wallet address inside the compliant DeFi ecosystem as well as the empty wallet balance of 0 ETH
+COMMAND 2- Bottom Terminal 3
+It shows our recipient wallet address inside the compliant DeFi ecosystem as well as the empty wallet balance of 0.01 ETH
 
 Phase 2:
-COMMAND 3- The Dual-ZKP Trigger (Attestation & Bridging)
-This command tells the Agentic Compliance Bridge to audit the Mock Bank's credentials, originate the Zero Knowledge Proof & broadcast to CCIP.
+COMMAND 3
+This command instructs the Agentic Compliance Bridge to audit the bank's credentials, originate and verify a Zero Knowledge Proof, and broadcast it via CCIP to enable instant atomic settlement of assets already secured on the destination chain.
 
 We used the Circom 2.0 compiler to define our private logic, requiring the user to have over 100 ETH and US residency, while ensuring the bank never leaks sensitive PII. 
 
-The Agentic Bridge API in Terminal 2 utilizes SnarkJS as a proving engine to generate a Zero-Knowledge Proof off-chain, so raw data never touches the public ledger. This proof is then ferried via Chainlink CCIP to Arbitrum, where our Solidity verifier contract sees only a cryptographic "Yes" or "No" to verify compliance and unlock the firewall.
+The Agentic Bridge API in Terminal 2 utilizes SnarkJS as a proving engine to generate a ZKP off-chain, so raw data never touches the public ledger. The proof is sent across chain using CCIP to our Solidity verifier contract that confirms: yes or no that the user is credentialed.
 
 ## Quickly Show the ComplianceGuard.sol code, specifically the verifyProof function
 
-There is the verify function for our ZKP and then our Agentic Compliance Bridge uses CCIP to move the ZKP Compliance Proofs, allowing for Instant Atomic Settlement of assets that are already secured on the destination chain.
+
 
 COMMAND 4- Bridge Transit 
  
 On this virtual testnet, we’ve implemented a Relay Script to simulate the CCIP DON (Decentralized Oracle Network). This allows us to observe the digital attestation moving from the Ethereum 'Outbox' to the Arbitrum 'Firewall' in real-time. 
 
-We can see the transaction on Tenderely Testnet (top transaction) - 
+We can see the transaction on Tenderly Testnet (top transaction) - 
 ## SHOW THIS:https://dashboard.tenderly.co/CCGrams/project/testnet/6098e35e-85a3-4a4b-8771-f02d5862a259
 
 
@@ -54,6 +51,8 @@ We can see the transaction on Tenderely Testnet (top transaction) -
 Attestation was successfully passed to Arbitrum:
 (dont read)
 Terminal 2:
+
+
 ✅ COMPLIANCE ATTESTED! The Agentic Compliance Bridge is now OPEN for this institution.
 Terminal 3:
 success: true,
@@ -61,38 +60,29 @@ success: true,
 (READ)  message: 'Bridge message delivered to destination firewall!'
 
 Phase 3
-COMMAND 5-
+COMMAND 5
 Our Next Command to VERIFY FIREWALL, checks the destination chain Arbitrum directly to see if the security gate has officially opened.
 Visual: When you see the flame 🔥 and the status flips to OPEN, this is the live verdict from our on-chain Solidity Verifier. It confirms that the Zero-Knowledge Proof has been mathematically validated on the destination chain, proving the user's compliance status with cryptographic certainty and automatically granting them access through the firewall.
 
 COMMAND 6
 The final command in the demonstration actually moves the money. It tells the Escrow contract: "The Firewall is open, the proofs are valid, now pay the recipient." - The Agentic Compliance Bridge successfully signed the transaction to release the funds after the ZKP proved that: Yes, the user is compliant! 
 
-You can see in Terminal 2 that the 10 Eth has been released from Escrow to the user's wallet.
+You can see in Terminal 2 that the 10 ETH has been released from Escrow to the user's wallet.
 
 Observe the transaction hash in Bottom Terminal 3 confirming the money has been released inside the compliant ecosystem.  
 
 (success = true)
 
 You can now see the user's wallet on the Arbitrum destination chain increase by 10 Eth. 
-## Show This: https://dashboard.tenderly.co/CCGrams/project/testnet/5d68632c-3795-41ea-8bbf-8a1d6a3510d8
+## Show This: 
+##-https://dashboard.tenderly.co/CCGrams/project/testnet/5d68632c-3795-41ea-8bbf-8a1d6a3510d8
 
 This verifies that the user's identity is compliant on the high-security of Ethereum, while enabling high-speed, institutionally compliant LP & Yield Farming on Arbitrum.
 
 
 ## Ending Slide - Demonstrated Capabilities
 
-(Narrative): We built our Agentic Compliance Bridge on a Chainlink Customized Runtime Environment (CRE). This off‑chain compute layer hosts our bridge agent, enabling it to ping Chainlink Oracles for data,  generate Zero‑Knowledge proofs, and audit bank data via Chainlink Functions—effectively connecting TradFi's privacy requirements with DeFi's need for transparency.
 
-Traditional bridges move money and assets, which is slow and vulnerable to hacks. Our Agentic Bridge moves Compliance Proofs, allowing for Instant Atomic Settlement of assets that are already secured on the destination chain.
+Our Hackathon Submission introduces the Agentic Compliance Bridge, built on a Custom Chainlink Runtime Environment. Unlike traditional bridges that move assets, our agent moves Compliance Proofs—auditing bank data and generating ZKPs off-chain via Chainlink Functions—to enable instant, compliant settlement. This creates a cryptographic gateway for a legally compliant LP environment, replacing manual friction with mathematical guarantees.
 
-Our Hackathon Submission enables a legally compliant, low-fee LP environment for the Clarity Act era. By unifying ZK-privacy with Chainlink’s secure infrastructure, we’ve replaced the friction of manual compliance with a cryptographic gateway—transforming a regulatory hurdle into a mathematically-guaranteed reality.
-
-
-
-
-
-
-
-
-
+The end, thank you.

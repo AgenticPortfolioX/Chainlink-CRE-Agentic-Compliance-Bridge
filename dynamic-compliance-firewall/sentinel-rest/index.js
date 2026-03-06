@@ -57,19 +57,20 @@ const institutionalEscrow = new ethers.Contract(process.env.INSTITUTIONAL_ESCROW
  * Safely sets balance on Tenderly virtual networks.
  * Checks existing balance first to avoid unnecessary management calls.
  * Gracefully handles quota errors (403) by assuming balance might be sufficient.
+ * @param force If true, overwrites current balance regardless of what it is.
  */
-async function safeSetBalance(provider, address, amountEth) {
+async function safeSetBalance(provider, address, amountEth, force = false) {
     try {
         const balance = await provider.getBalance(address);
         const threshold = ethers.utils.parseEther(amountEth);
 
-        // If balance is already sufficient (>= threshold), skip call
-        if (balance.gte(threshold)) {
+        // If balance is already sufficient (>= threshold) AND not forced, skip call
+        if (!force && balance.gte(threshold)) {
             console.log(`[Tenderly] Skip setBalance for ${address} (Existing: ${ethers.utils.formatEther(balance)} ETH)`);
             return;
         }
 
-        console.log(`[Tenderly] Funding ${address} with ${amountEth} ETH...`);
+        console.log(`[Tenderly] ${force ? 'Resetting' : 'Funding'} ${address} to ${amountEth} ETH...`);
         await provider.send("tenderly_setBalance", [
             [address],
             ethers.utils.hexValue(threshold)
@@ -95,11 +96,11 @@ app.post('/init', async (req, res) => {
 
         console.log("Agentic Compliance Bridge API Online...");
 
-        // 1. Give the recipient 0.1 ETH for gas (Small starting balance)
-        await safeSetBalance(destinationProvider, recipient, "0.1");
+        // 1. Force the recipient to 0.1 ETH for gas (RESETS high balances from previous runs)
+        await safeSetBalance(destinationProvider, recipient, "0.1", true);
 
         // 2. Fund the Escrow with exactly 10 ETH
-        await safeSetBalance(destinationProvider, escrowAddr, "10.0");
+        await safeSetBalance(destinationProvider, escrowAddr, "10.0", true);
 
         const escBal = await destinationProvider.getBalance(escrowAddr);
         const recBal = await destinationProvider.getBalance(recipient);
@@ -227,7 +228,7 @@ app.post('/send-ccip', async (req, res) => {
             return res.json({ simulated: true });
         } else {
             console.log("🚀 [Agent] Cross-Chain Message Initiated...");
-            console.log(`   - Payload: [Dual-ZKP: 100 ETH Requirement]`);
+            console.log(`   - Payload: [ZKP - 100 ETH, 845 Geography Requirement]`);
             const tx = await router.ccipSend(destinationChainSelector, message, { gasLimit: 4000000 });
             console.log(`   - CCIP Source TX: ${tx.hash}`);
             await tx.wait();

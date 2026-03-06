@@ -197,4 +197,5 @@ Our Agentic Compliance Bridge is a living example of what CRE enables: a hybrid 
 
 📜 License
 MIT — Dedicated to the Chainlink Convergence 2026 Hackathon
+
 **Owner: Justin Gramke (jmgramke@gmail.com)**
