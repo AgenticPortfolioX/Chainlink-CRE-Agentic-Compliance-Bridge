@@ -3,7 +3,7 @@ description:
 ---
 
 # Agentic Compliance Bridge
-**Hackathon:** Chainlink Convergence (Feb 2026)  
+**Hackathon:** Chainlink Convergence 2026  
 **Main Skill & Demo** - Dynamic Compliance Firewall powered by Chainlink CRE
 
 🧭 **Overview**
