@@ -59,10 +59,19 @@ Traditional bridges move money, which is slow and vulnerable. Our Agentic Bridge
 | Automates entire bridge settlement lifecycle.|
 ```
 
-All these services are orchestrated by our CRE Agentic Bridge, which runs in Chainlink’s Customized Runtime Environment—the off‑chain compute layer that handles private logic and expensive computations.
+These services are orchestrated by our CRE Agentic Bridge, which runs in Chainlink’s Customized Runtime Environment—the off‑chain compute layer that handles private logic and expensive computations.
+
+🤖 **Agentic CRE Workflows**
+We use NPM commands to control our CRE Workflows, and have converted four of the most valuable ones into slash commands, enabling our agent to call them as Skills in the future.
+
+[Origination]	/send-ccip	- Agent uses Functions to audit bank data and generate the ZKP locally.
+[Transmission]	/relay	- Agent ferries the cryptographic proof across the CCIP bridge (simulated via a relay script).
+[Verification]	/status	- Agent scans the destination chain to confirm the firewall is 🔥 OPEN.
+[Settlement]	/release-funds	- Agent triggers the escrow release, completing atomic settlement.
 
 🏛️ **Architecture: The Agentic CRE Core**
-The Agentic Compliance Bridge is a Customized Runtime Environment Agent. It operates off‑chain, performing the “hard logic” (ZKP generation, bank API calls) that is too private or expensive for the blockchain.
+The Agentic Compliance Bridge is a Customized Runtime Environment Agent (implemented in sentinel-rest/) that operates off‑chain as the Ai Agent brain, performing the “hard logic”—such as ZKP generation and bank API calls—that is too private or expensive for the blockchain. 
+It uses Chainlink Functions to fetch bank data, generates the ZKP locally, and initiates the CCIP message, ensuring that private data never leaves the agent’s secure off‑chain environment.
 
 ```plaintext
 ┌────────┐
@@ -121,8 +130,6 @@ The Agentic Compliance Bridge is a Customized Runtime Environment Agent. It oper
 
 
 
-The Agentic Compliance Bridge (implemented in sentinel-rest/) is the Ai Agent brain. It uses Chainlink Functions to fetch bank data, generates the ZKP locally, and initiates the CCIP message. This architecture ensures that private data never leaves the agent’s secure off‑chain environment.
-
 🎯 **Hackathon Centerpiece: The Dynamic Compliance Firewall**
 This skill is the heart of our submission. It’s a smart gateway that remains 🔒 LOCKED until it receives a valid, cross‑chain compliance attestation.
 
@@ -137,14 +144,9 @@ Institutional Escrow Vault: A high‑security vault controlled exclusively by th
 
 The firewall contract (ComplianceGuard.sol) exposes a verifyProof function that consumes the ZKP and, if valid, toggles the gate to 🔥 OPEN. Once open, the agent can call releaseFunds to settle the transaction.
 
-🤖 **Agentic CRE Workflows**
-The Agentic Compliance Bridge manages the deposit clearing process through four distinct workflows, triggered by human‑to‑agent slash commands (demonstrated with NPM Terminal Commands in our live demo):
+We use NPM commands in the Hackathon submission but we have also turned those NPM commands into slash /commands for our Agentic Compliance Bridge to use when needed.
 
-Workflow	Command	Logic Description
-Origination	/send-ccip	Agent uses Functions to audit bank data and generate the ZKP locally.
-Transmission	/relay	Agent ferries the cryptographic proof across the CCIP bridge (simulated via a relay script).
-Verification	/status	Agent scans the destination chain to confirm the firewall is 🔥 OPEN.
-Settlement	/release-funds	Agent triggers the escrow release, completing atomic settlement.
+
 
 These workflows are powered by the CRE, which allows the agent to run continuously, react to events, and interact with both off‑chain APIs and on‑chain contracts. We use NPM commands in the Hackathon submission but we have also turned those NPM commands into /commands for our Agentic Compliance Bridge to use when needed.
 
